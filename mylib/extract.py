@@ -6,7 +6,9 @@ import requests
 
 
 def extract(
-    url="https://raw.githubusercontent.com/fivethirtyeight/data/refs/heads/master/births/US_births_2000-2014_SSA.csv",
+    url=(
+        "https://raw.githubusercontent.com/fivethirtyeight/data/refs/heads/master/births/US_births_2000-2014_SSA.csv"
+    ),
     file_path="data/data.csv",
 ):
     """ "Extract a url to a file path"""
