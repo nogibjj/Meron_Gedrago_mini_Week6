@@ -1,14 +1,12 @@
 """
-Extract a dataset from a URL like Kaggle or data.gov. JSON or CSV formats tend to work well
+Extract a dataset from a URL, JSON or CSV formats tend to work well
 """
 
 import requests
 
 
 def extract(
-    url=(
-        "https://github.com/fivethirtyeight/data/raw/refs/heads/master/births/US_births_2000-2014_SSA.csv"
-    ),
+    url="https://github.com/fivethirtyeight/data/raw/refs/heads/master/births/US_births_2000-2014_SSA.csv",
     file_path="data/data.csv",
 ):
     """ "Extract a url to a file path"""
