@@ -10,7 +10,7 @@ def read():
     cursor.execute("SELECT * FROM birthData")
     print(cursor.fetchall())
     conn.close()
-    return "birthData.db"
+    return "Successfully read!"
 
 
 def create():
@@ -20,7 +20,7 @@ def create():
     cursor.execute("INSERT INTO birthData VALUES ('2014','1','1','1','1')")
     conn.commit()
     conn.close()
-    return "birthData.db"
+    return "Sucessfully created!"
 
 
 def update():
@@ -30,7 +30,7 @@ def update():
     cursor.execute("UPDATE birthData SET births = '1000' WHERE day_of_week = '1';")
     conn.commit()
     conn.close()
-    return "birthData.db"
+    return "Successfully updated!"
 
 
 def delete():
@@ -40,7 +40,7 @@ def delete():
     cursor.execute("DELETE FROM birthData WHERE year = '2000';")
     conn.commit()
     conn.close()
-    return "birthData.db"
+    return "Sucessfully deleted!"
 
 
 if __name__ == "__main__":
