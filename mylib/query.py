@@ -17,7 +17,7 @@ def create():
     """Create a fake data"""
     conn = sqlite3.connect("birthData.db")
     cursor = conn.cursor()
-    cursor.execute("INSERT INTO birthData VALUES ('2014','1','1','1','1')")
+    cursor.execute("INSERT INTO birthData VALUES ('2014','11','11','1','11')")
     conn.commit()
     conn.close()
     return "Sucessfully created!"
