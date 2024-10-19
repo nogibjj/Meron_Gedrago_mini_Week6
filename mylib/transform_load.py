@@ -27,8 +27,8 @@ def load(dataset="data/birthdata.csv", dataset_1994="data/birthdata_1994.csv"):
                 (year INT, 
                 month INT, 
                 date_of_month INT, 
-                day_of_week INT, b
-                irths INT);"""
+                day_of_week INT, 
+                births INT);"""
             )
             cursor.execute("SELECT * FROM mwg29_birthdata")
             result = cursor.fetchall()
