@@ -1,5 +1,6 @@
-## Meron Gedrago mini project week 5
+## Meron Gedrago mini project week 6
 
+[![CI](https://github.com/nogibjj/Meron_Gedrago_mini_Week6/actions/workflows/cicd.yml/badge.svg)](https://github.com/nogibjj/Meron_Gedrago_mini_Week6/actions/workflows/cicd.yml)
 
 ## Structure for this project 
 
@@ -25,56 +26,38 @@
 ```
 ## Purpose of the project  
 
-This project aims to create a basic ETL pipeline by connecting to SQLite and performing simple SQL queries on a [fivethirtyeight data](https://github.com/fivethirtyeight/data/tree/master/births) on births from 2000-2014 incuding the number of births reported everyday across the years
-([E] Extract a dataset from URL, [T] Transform, [L] Load into SQLite Database and [Q] Query
-For the ETL-Query lab) 
+This project aims to connect to an external databse (I used Databricks) and perform complex SQL queries on [fivethirtyeight data](https://github.com/fivethirtyeight/data/tree/master/births). 
+There are three main highlights in this project: Connecting to Databricks, Performing complex queries and Pushing to github 
 
 
-![4 17-etl-sqlite-RAW](https://github.com/nogibjj/sqlite-lab/assets/58792/b39b21b4-ccb4-4cc4-b262-7db34492c16d)
-
-### [E] Extract: *extract a csv file from url and create file (data.csv) in local directory* 
-
-<img src="visuals/Extract_csv.png">
-
-### [T] Transform and [L] Load: *Transform the csv file into a db file and connect to SQLite*
-
-<img src="visuals/Load_db.png">
-
-### [Q] Query: *Perform CRUD (Create, Read, Update and Delete) operations*
-
-#### Read - *reading and printing each of the rows in the dataset* 
-
+### Connecting to external database: *connect to Databricks* 
 **Code:**
-```
-cursor.execute("SELECT * FROM birthData")
-print(cursor.fetchall())
-```
+Steps done in the code to connect to Databricks:
+1. Set up sensitive login information in .env and reference it in the load function 
+2. Connect to Databricks using the login information 
+3. Create the first table if it doesnt already exists 
+4. Check if the table has something in it, if it doesnt then fill out the table with values from out csv file 
+5. Replicate for second table
 
-<img src="visuals/Read_query.png">
+<img src="visuals/code_connect.png">
 
-#### Create - *Create a new row and add it to the table (the row is (2014,11,11,1,11))* 
 
+**Tables in Databricks:**
+<img src="visuals/databricks_visual.png">
+
+### Performing complex queries: *Perform aggregation, joining of two tables and sorting*
 **Code:**
-```
-cursor.execute("INSERT INTO birthData VALUES ('2014','11','11','1','11')")
-```
-<img src="visuals/Create_querty.png">
+Steps done in the code to perform complex queries:
+1. Connect to Databricks 
+2. Check if the combination of the two tables exist, if not, join the two tables by rows 
+3. Using the combined tables, aggregate the births by year, add a column for summation and average of the birth and sort descending by average births per year 
 
-#### Update - *Update rows based on a condition, changing the birth number to 1000 if day of week is 1* 
+<img src="visuals/code_query.png">
 
-**Code:**
-```
-cursor.execute("UPDATE birthData SET births = '1000' WHERE day_of_week = '1';")
-```
+**Combined tables in Databricks:**
+<img src="visuals/join_visual.png">
 
-<img src="visuals/Update_query.png">
+<img src="visuals/agg_and_sort.png>
 
+### CI/CD: *Pushing to github successfully*
 
-#### Delete - *Delete rows based on a condition, deleting rows where the birth year is 2000* 
-
-**Code:**
-```
-cursor.execute("DELETE FROM birthData WHERE year = '2000';")
-```
-
-<img src="visuals/Delete_query.png">
