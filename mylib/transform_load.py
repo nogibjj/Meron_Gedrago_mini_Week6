@@ -23,7 +23,12 @@ def load(dataset="data/birthdata.csv", dataset_1994="data/birthdata_1994.csv"):
     ) as connection:
         with connection.cursor() as cursor:
             cursor.execute(
-                """CREATE TABLE IF NOT EXISTS mwg29_birthdata (year INT, month INT, date_of_month INT, day_of_week INT, births INT);"""
+                """CREATE TABLE IF NOT EXISTS mwg29_birthdata 
+                (year INT, 
+                month INT, 
+                date_of_month INT, 
+                day_of_week INT, b
+                irths INT);"""
             )
             cursor.execute("SELECT * FROM mwg29_birthdata")
             result = cursor.fetchall()
@@ -35,7 +40,12 @@ def load(dataset="data/birthdata.csv", dataset_1994="data/birthdata_1994.csv"):
                 cursor.execute(string_sql)
 
             cursor.execute(
-                """CREATE TABLE IF NOT EXISTS mwg29_birthdata_1994 (year INT, month INT, date_of_month INT, day_of_week INT, births INT);"""
+                """CREATE TABLE IF NOT EXISTS mwg29_birthdata_1994 
+                (year INT, 
+                month INT, 
+                date_of_month INT, 
+                day_of_week INT, 
+                births INT);"""
             )
             cursor.execute("SELECT * FROM mwg29_birthdata_1994")
             result = cursor.fetchall()
