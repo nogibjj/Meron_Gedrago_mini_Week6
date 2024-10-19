@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 join_table = """ 
 
-CREATE TABLE mwg29_combined_births 
+CREATE TABLE combined_births 
 AS SELECT * FROM mwg29_birthdata
 UNION ALL
 SELECT * FROM mwg29_birthdata_1994;
@@ -17,7 +17,7 @@ SELECT
     SUM(births) AS total_births,
     AVG(births) AS avg_births
 FROM 
-    mwg29_combined_births
+    combined_births
 GROUP BY 
     year
 ORDER BY 
