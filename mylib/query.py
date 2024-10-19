@@ -3,13 +3,15 @@ from databricks import sql
 from dotenv import load_dotenv
 
 
-complex_query = """ 
+join_table = """ 
 
 CREATE TABLE mwg29_combined_births 
 AS SELECT * FROM mwg29_birthdata
 UNION ALL
 SELECT * FROM mwg29_birthdata_1994;
+"""
 
+agg_and_sort = """
 SELECT 
     year, 
     SUM(births) AS total_births,
@@ -32,7 +34,12 @@ def query():
         access_token=os.getenv("DATABRICKS_KEY"),
     ) as connection:
         with connection.cursor() as cursor:
-            cursor.execute(complex_query)
+            cursor.execute("SELECT * FROM mwg29_combined_births")
+            result = cursor.fetchall()
+            if not result:
+                cursor.execute(join_table)
+
+            cursor.execute(agg_and_sort)
 
             cursor.close()
             connection.close()
