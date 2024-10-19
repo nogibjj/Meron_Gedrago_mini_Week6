@@ -21,5 +21,9 @@ jobs:
       - name: lint
         run: make lint
       - name: test
+        env:
+          DATABRICKS_KEY: ${{ secrets.DATABRICKS_KEY }}
+          SQL_SERVER_KEY: ${{ secrets.SQL_SERVER_KEY }}
+          HTTP_PATH: ${{ secrets.HTTP_PATH }}
         run: make test
 
