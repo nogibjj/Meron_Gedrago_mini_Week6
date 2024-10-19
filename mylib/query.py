@@ -1,50 +1,47 @@
-"""Query the database"""
-
-import sqlite3
-
-
-def read():
-    """Read and print the database for all the rows of the dataBirth table"""
-    conn = sqlite3.connect("birthData.db")
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM birthData")
-    print(cursor.fetchall())
-    conn.close()
-    return "Successfully read!"
+import os
+from databricks import sql
+from dotenv import load_dotenv
 
 
-def create():
-    """Create a fake data"""
-    conn = sqlite3.connect("birthData.db")
-    cursor = conn.cursor()
-    cursor.execute("INSERT INTO birthData VALUES ('2014','11','11','1','11')")
-    conn.commit()
-    conn.close()
-    return "Sucessfully created!"
+complex_query = """ 
+
+CREATE TABLE mwg29_combined_births 
+AS SELECT * FROM mwg29_birthdata
+UNION ALL
+SELECT * FROM mwg29_birthdata_1994;
+
+SELECT 
+    year, 
+    SUM(births) AS total_births,
+    AVG(births) AS avg_births
+FROM 
+    combined_births
+GROUP BY 
+    year
+ORDER BY 
+    avg_births DESC;
+"""
 
 
-def update():
-    """Update day of week value of 1 and set the births to 1000"""
-    conn = sqlite3.connect("birthData.db")
-    cursor = conn.cursor()
-    cursor.execute("UPDATE birthData SET births = '1000' WHERE day_of_week = '1';")
-    conn.commit()
-    conn.close()
-    return "Successfully updated!"
+def query():
+    """ "Transforms and Loads data into the databricks database"""
+    load_dotenv()
+    with sql.connect(
+        server_hostname=os.getenv("SQL_SERVER_KEY"),
+        http_path=os.getenv("HTTP_PATH"),
+        access_token=os.getenv("DATABRICKS_KEY"),
+    ) as connection:
+        with connection.cursor() as cursor:
 
+            cursor.execute(complex_query)
+            result = cursor.fetchall()
+            for row in result:
+                print(row)
 
-def delete():
-    """Delete rows that year is equal to 2000"""
-    conn = sqlite3.connect("birthData.db")
-    cursor = conn.cursor()
-    cursor.execute("DELETE FROM birthData WHERE year = '2000';")
-    conn.commit()
-    conn.close()
-    return "Sucessfully deleted!"
+            cursor.close()
+            connection.close()
+    return "query successful"
 
 
 if __name__ == "__main__":
-    read()
-    create()
-    update()
-    delete()
+    query()

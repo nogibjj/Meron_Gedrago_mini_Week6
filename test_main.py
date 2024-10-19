@@ -3,40 +3,34 @@ Test goes here
 
 """
 
-from mylib.extract import extract
+from mylib.extract import extract1, extract2
 from mylib.transform_load import load
-from mylib.query import read, create, update, delete
+from mylib.query import query
 
 
 def test_extract():
-    assert extract() == "data/data.csv"
+    """testing extract"""
+    test11 = extract1()
+    test12 = extract2()
+    assert test11 is not None
+    assert test12 is not None
 
 
-def test_transform():
-    assert load() == "birthData.db"
+def test_load():
+    """testing load"""
+    test2 = load()
+    assert test2 == "dataset loaded to databricks or already exists!"
 
 
-def test_create():
-    assert create() == "Sucessfully created!"
-
-
-def test_read():
-    assert read() == "Successfully read!"
-
-
-def test_update():
-    assert update() == "Successfully updated!"
-
-
-def test_delete():
-    assert delete() == "Sucessfully deleted!"
+def test_query():
+    """testing query"""
+    test3 = query()
+    assert test3 == "query successful"
 
 
 if __name__ == "__main__":
     test_extract()
-    test_transform()
-    test_create()
-    test_read()
-    test_update()
-    test_delete()
+    test_load()
+    test_query
+
     print("Everything passed")

@@ -1,6 +1,5 @@
 ## Meron Gedrago mini project week 5
 
-[![CI](https://github.com/nogibjj/Meron_Gedrago_mini_Week5/actions/workflows/cicd.yml/badge.svg)](https://github.com/nogibjj/Meron_Gedrago_mini_Week5/actions/workflows/cicd.yml)
 
 ## Structure for this project 
 
