@@ -34,7 +34,7 @@ def query():
         access_token=os.getenv("DATABRICKS_KEY"),
     ) as connection:
         with connection.cursor() as cursor:
-            cursor.execute("SELECT * FROM mwg29_combined_births")
+            cursor.execute("SELECT * FROM combined_births")
             result = cursor.fetchall()
             if not result:
                 cursor.execute(join_table)
