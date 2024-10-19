@@ -15,7 +15,7 @@ SELECT
     SUM(births) AS total_births,
     AVG(births) AS avg_births
 FROM 
-    combined_births
+    mwg29_combined_births
 GROUP BY 
     year
 ORDER BY 
@@ -32,11 +32,7 @@ def query():
         access_token=os.getenv("DATABRICKS_KEY"),
     ) as connection:
         with connection.cursor() as cursor:
-
             cursor.execute(complex_query)
-            result = cursor.fetchall()
-            for row in result:
-                print(row)
 
             cursor.close()
             connection.close()
